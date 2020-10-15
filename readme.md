@@ -12,6 +12,12 @@
  git connfig --global user.email '본인이메일'
  ~~~
 
+ ## 6. 프로젝트 폴더를 만들고 vscode에서 연 다음, git을 설정한다
+ ~~~bash
+ git init
+ git remate add origin https://github.com/jiminp0421/2020-kn-node4-01-hello01.git
+ ~~~
+
  
 
 
