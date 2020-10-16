@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ul>  
+
+<script>
+    //console.log(this); //자바스크립트=객체지향 가장 최상위의 객체인 window가 찍힌다.
+    var a = 10;
+    console.log(a); //자바스크립트=객체지향 가장 최상위의 객체인 window가 찍힌다.
+    //window.a = 10;
+    //this.a = 10;
+
+    function test() {
+        console.log(this);
+    }
+    test(); //이 함수를 실행해도 window가 나온다. 왜? 개발자모드 t를 가보면 윈도우 객체에서 함수가 만들어진다.
+
+    var obj = {
+        a:10,
+        test: function(){
+            console.log(this);
+        }//리터럴 객체 변수들의 숫자나 문자를 저장.
+    }
+    var obj2 = obj;
+    obj2.a = 30;
+    console.log(obj2.a);
+    console.log(obj.a); //배열 객체 레퍼런스타입
+
+    //primmitive type a라는 방에 10이 들었다 그것을 b에다 대입하면 b도 10이라는 값을 갖는다 b에 30을 넣어주면 10을 없애고 30을 보인다.
+    var a = 10;
+    var b = a;
+    b = 30;
+    console.log(a, b);
+
+    //Reference type(배열과 객체) arr에 12345를 넣으면 data값 자체가 들어가는게 아니라 12345를 저장한 주소를 갖고있다. arr2 도 주소를 갖게된다.
+    var arr = [1,2,3,4,5];
+    var arr2 = arr; //softcopy라고 한다. arr에 12345를 선언하면 arr은 12345를 바라본다 이 과정을 거치면 arr2도 12345를 바라본다 이래서 레퍼런스타입.
+    var arr2 = arr.slice()//다른방에 두려면 배열 deep copy를 써야한다. slice를 넣으면 됨.
+    arr2[0] = 100;
+    console.log(arr, arr2);
+
+    //생성자 객체 활용
+    function Car(name) {
+        this.name = name; //컨스트럭터
+        //return this;
+    }
+
+    Car.prototype.drive = function() {
+        console.log(this.name + "이(가) 달립니다.")
+    }
+
+    var myCar = new Car('붕붕이'); //new Car를 사용하면 리터럴객체를 2개를 만들었다.
+    myCar.drive();
+
+    var yourCar = new Car('방방이');
+    yourCar.drive();
+
+    //함수표현식
+    var Test = function() {
+        console.log("Test");
+    }
+    Test();
+    //함수선언문
+    function Test2() {
+        console.log("Test2");
+    }
+    Test2();
+
+    //함수표현식
+    Test();
+    var Test = function() {
+        console.log("Test");
+    } //변수는 변수를 선언하는 시점에서 발생하기때문에 함수표현식은 오류가 뜬다
+    
+    //함수선언문
+    Test2();
+    function Test2() {
+        console.log("Test2");
+    }
+
+    //생성자객체
+    function Test3() {
+        return this; //자바스크립트 클래스(리터럴)라고 생각하면 돼
+    }
+    
+    var test = new Test3(); //new라는 명령으로 객체를 생성할수있다. 인스턴스객체로 만들었음.
+    console.log(test);
+
+    // ES6 - 생성자 객체
+    class Car2 {
+        constructor(name){ //new할때 실행되는 함수
+            this.name = name;
+        }
+        drive() {
+            console.log(this.name + "이(가) 달립니다.");
+        }
+    }
+    
+    var car = new Car2('뿡뿡이');
+    car.drive();
+
+    //변수선언 할 때 차이점 알기
+    // ES5 = var
+    // ES6 - var, let, const
+    var i = 10; //지역변수
+    for(let i=0; i<5; i++) {
+        console.log(i);
+    }
+    console.log(i);
+    //var는 전역변수 let은 지역변수
+    var list = document.querySelectorAll('ul>li');
+    for(let i=0; i<list.length; i++) {
+        list[i].addEventListener("click", function(){
+            console.log(i);
+        });
+    }
+
+    console.clear();
+    const a2 = 10; //const는 상수선언 한번 값을 넣어놓으면 변하지 않는다. 상수는 선언과 동시에 값을 줘야한다.
+    
+    var bb = 10;
+    var bb = 20;
+
+    console.log(a2); //undefined를 찍는다 고질적인 문제 
+
+
+    const arr5 = []; //배열이나 객체에서 쓰임
+    arr5[0] = 'A';
+    console.log(arr5);
+
+    //ES6 Iteration 차이점 알기
+
+    Array.prototype.test = function() {
+        console.log(this, 'hi');
+    }//for in문이 안좋은이유 갯수를 다 인자로 인식함. A,B,C 만나와야하는데 이것까지 인식해버림.
+
+    const arr6 = ['A', 'B', 'C'];
+    for(let i=0; i<arr6.length; i++){
+        console.log(arr6[i]);
+    }
+
+    for(let i in arr6) {
+        console.log(arr6[i]);
+    }//배열의 갯수만큼 돈다
+
+    for(let v of arr6){
+        console.log(v);
+    } //value값을 리턴해 준다
+
+    arr6.forEach(function(v, i){
+        console.log(v, i);
+    });
+    
+
+    
+    var arr7 = new Array();
+    arr7.test();
+
+    console.clear();
+    // filter, map
+    const users = [
+        {id: 1, name: "홍길동", age: 25},
+        {id: 2, name: "홍길남", age: 15},
+        {id: 3, name: "홍길북", age: 45},
+        {id: 4, name: "홍길영", age: 55},
+        {id: 5, name: "홍길서", age: 65},
+        {id: 6, name: "홍길노", age: 95},
+        {id: 7, name: "홍길로", age: 75},
+    ];
+
+    const user30 = users.filter(function(v){ //filter메소드가 배열을 순회하면서 각각 함수를 실행해주는데 그때 0,1,2 ~을 순회하면서 각각의 값이 v에 들어간다 v를 평가함.
+        return v.age >= 30; //이조건이 참이면 데이터를 배열에 넣는다
+    });
+    console.log(user30);
+
+    const user2021 = users.map(function(v){
+        var age = v.age + 1;
+        return age;
+    });
+    console.log(users, user2021); 
+
+    // ES6
+    let set = new Set(); //중복데이터를 걸러버린다. 유일한 유니크값만 저장한다.
+    set.add('A');
+    set.add('B');
+    set.add('A');
+    set.add('C');
+    set.add('B');
+    set.add('A');
+    set.delete('B');//데이터 지우기
+    console.log(    set.has('C')); //true, false를 이용해 검색가능
+    console.log(set, set.size);
+
+    let map = new Map();//자바의 list객체라고 보면 된다 key, value로 데이터를 저장할수있다.
+    map.set('a', 'AAAA');
+    map.set('b', 'BBBB');
+    map.set('c', 'CCCC');
+    map.set('d', 'DDDD');
+    console.log(map, map.size);
+
+    for(let [k, v] of map) {
+        console.log(k, v);
+    }
+
+    console.log(map.keys()); //key값만 객체로 리턴해준다.
+    console.log(map.values()); //values만 리턴해준다.
+
+    for(let v of map.values()) {
+        console.log(v);
+    }
+
+    for(let [v, i] of map.entries()) {
+        console.log(v, i);
+    }
+
+    console.log(map.get('a')); //key값이 a인 아이의 값을 가져오라고 지정가능
+    console.log(map.has('a')); //true, false로 확인가능.
+
+</script>
+
+</body>
+</html>
