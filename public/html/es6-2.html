@@ -1,0 +1,97 @@
+<script>
+    //구조분해할당(비구조화할당)
+    const obj = {
+        a: 'A',
+        b: 'B',
+        c: 'C',
+        d: 'D'
+    }
+    //var a = obj.a; 
+    //var b = obj.b;
+    //var c = obj.c;
+
+    var {a, c} = obj;
+    console.log(a,c);
+
+    //var userid = req.body.userid;
+    //var userpw = req.body.userpw;
+    //var {userid, userpw} = req.body;
+
+    //rest operator(나머지 연산자) spread operator(펼침 연산자)
+    const fruits = ['apple', 'banana', 'mango'];
+    const fruits2 = ['kiwi', ...fruits, 'orange']; //펼침연산자
+    
+    console.log(fruits2);
+
+    const newFruits = fruits.concat(fruits2); //배열 하나로 더하기
+    console.log(newFruits);
+
+    class Test {
+        constructor(...arg) { //test,test2,test3안에있는 인자('A', 'B',)를 ...arg로 받는다(이름바뀌어도 상관없음)
+            this.arg = arg
+        }
+        print() {
+            console.log(this.arg);
+        }
+    }
+
+    var test = new Test();
+    var test2 = new Test('A');
+    var test3 = new Test('A', 'B');
+    
+    test.print();
+    test2.print();
+    test3.print();
+    /*
+    function sample() {
+        var _a = a || 10;
+        var _b = b || 20;
+        console.log(_a + _b);
+    }
+    
+    sample();
+    sample(1);
+    sample(1,2);
+    
+    animate({"left": "100px"});
+    animate({"left": "100px"}, 500);
+    animate({"left": "100px"}, 500, "linear");
+    animate({"left": "100px"}, 500, "linear", function(){
+    });
+    */
+
+    function sample2(a=10, b=20) {
+        console.log(a + b);
+    }
+    sample2();
+    sample2(1);
+    sample2(1,2);
+
+    console.clear();
+    //Arrow function
+    function fn(a) {
+        return a * a;
+    }
+
+
+    var fn2 = function(a) {
+        return a * a;
+    }
+
+    var fn3 = (a) => {return a * a; }
+    var fn4 = a => a * a;
+
+    console.log( fn3(5));
+    console.log( fn4(6));
+
+    var dt = new Date();
+    console.log( zeroPlus(dt.getSeconds()));
+
+    function zeroPlus(v) {
+        return v < 10 ? '0'+v : v;
+    }
+
+    var zeroPlus2 = v => v <10 ? '0' +v : v;
+    console.log( zeroPlus2(dt.getSeconds()));
+
+</script>
